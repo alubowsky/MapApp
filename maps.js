@@ -1,38 +1,7 @@
 /*global google, $ */
-/* jshint -W104, -w119 */
+/* jshint -W104 */
 (function () {
     "use strict";
-
-    //function to handle geolocation error
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-            'Error: The Geolocation service failed. check to see if you gave permission to your browser or use the search box instead' :
-            'Error: Your browser doesn\'t support geolocation. Use the search box instead');
-        infoWindow.open(map);
-    }
-
-    //geolocation
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-            map.setCenter(pos);
-            let markerLocation = pos;
-            let marker = new google.maps.Marker({
-                position: markerLocation,
-                map: map,
-            });
-            markers.push(marker);
-            map.setZoom(13);
-        });
-    } else {
-        //if user doesn't allow
-        handleLocationError(false, infoWindow, map.getCenter());
-    }
 
     let search = $('#search'),
         numResultsInput = $('#numResults'),
@@ -69,6 +38,39 @@
         });
 
     drawingManager.setMap(map);
+
+    //function to handle geolocation error
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed. check to see if you gave permission to your browser or use the search box instead' :
+            'Error: Your browser doesn\'t support geolocation. Use the search box instead');
+        infoWindow.open(map);
+    }
+
+    //geolocation
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            map.setCenter(pos);
+            let markerLocation = pos;
+            let marker = new google.maps.Marker({
+                position: markerLocation,
+                map: map,
+            });
+            markers.push(marker);
+            map.setZoom(13);
+        });
+    } else {
+        //if user doesn't allow
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+
 
     google.maps.event.addListener(drawingManager, 'rectanglecomplete', function (drawing) {
         clearMap();
@@ -115,7 +117,7 @@
                 });
         });
         map.fitBounds(bounds);
-    }
+    };
 
     $('#go').click(function () {
         clearMap();
