@@ -73,7 +73,7 @@
     google.maps.event.addListener(drawingManager, 'rectanglecomplete', function (drawing) {
         clearMap();
         rectangle = drawing;
-        $.getJSON("http://api.geonames.org/wikipediaBoundingBox?",
+        $.getJSON("https://api.geonames.org/wikipediaBoundingBox?",
             {
                 north: drawing.getBounds().f.b,
                 south: drawing.getBounds().f.f,
@@ -103,7 +103,7 @@
             bounds.extend(location);
 
             marker.addListener('click', function () {
-                infoWindow.setContent(location.summary + '<br><a target="_blank" href="http://' + location.wikipediaUrl + '">Wikipedia</a>');
+                infoWindow.setContent(location.summary + '<br><a target="_blank" href="https://' + location.wikipediaUrl + '">Wikipedia</a>');
                 infoWindow.open(map, marker);
             });
 
@@ -119,7 +119,7 @@
 
     $('#go').click(function () {
         clearMap();
-        $.getJSON("http://api.geonames.org/wikipediaSearch?callback=?",
+        $.getJSON("https://api.geonames.org/wikipediaSearch?callback=?",
             {
                 q: search.val(),
                 maxRows: numResultsInput.val(),
