@@ -119,7 +119,7 @@
 
     $('#go').click(function () {
         clearMap();
-        $.getJSON("http://api.geonames.org/wikipediaSearch?callback=?",
+        $.getJSON("http://secure.geonames.org/wikipediaSearch?callback=?",
             {
                 q: search.val(),
                 maxRows: numResultsInput.val(),
